@@ -1,31 +1,50 @@
 # OpenWeather Collection
 
-This repository contains the OpenWeather collection of tests and fixtures.
+Collection of Bruno API tests for OpenWeather-style endpoints.
 
-Getting started
+Prerequisites
 
-- Initialize a local git repository (if not already):
+- Node.js and npm
+- Bruno CLI (`@usebruno/cli`) — installed with `npm install -g @usebruno/cli`
 
-```bash
-git init
-git branch -M main
-git add .
-git commit -m "Initial commit: add Azure pipeline and docs"
-```
+Quick start (local)
 
-- Create a GitHub repository and push:
+1. Install Bruno CLI if needed:
 
 ```bash
-git remote add origin <your-github-repo-url>
-git push -u origin main
+npm install -g @usebruno/cli
 ```
 
-CI with Azure Pipelines
+2. Provide your OpenWeather API key locally:
 
-This repository includes `azure-pipelines.yml` which lints YAML files with `yamllint`.
-To enable CI:
+```bash
+export OPENWEATHER_API_KEY=your_real_key_here
+```
 
-1. In Azure DevOps create a new pipeline and point it to this repository.
-2. Use the existing `azure-pipelines.yml` at the repository root.
+3. Run the full collection from the repo root:
 
-# bruno
+```bash
+bru run . --env environment-variables
+```
+
+Run a folder or single request for faster feedback:
+
+```bash
+bru run weather-stations-api --env environment-variables
+bru run weather-stations-api/crud-tests/01-register-station.yml --env environment-variables
+```
+
+CI (GitHub Actions)
+
+This repository includes CI workflows:
+
+- GitHub Actions workflow: `.github/workflows/openweather-api-tests.yml` (runs Bruno tests).
+- Azure Pipelines: `azure-pipelines.yml` (optional lint step).
+
+Make sure to add `OPENWEATHER_API_KEY` as a repository secret for GitHub Actions.
+
+Pushing workflow files to GitHub may require a PAT with the `workflow` scope when using an OAuth token. Alternatively push via SSH which does not require the `workflow` scope.
+
+Troubleshooting
+
+If Bruno reports `Invalid URL: {{baseUrl}}/...`, ensure `environments/environment-variables.yml` exists and that `OPENWEATHER_API_KEY` is set in your environment. This collection's environment file reads the key using `value: "{{env.OPENWEATHER_API_KEY}}"`.
