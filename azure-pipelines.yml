@@ -1,0 +1,28 @@
+# Azure Pipelines: basic YAML to lint YAML files and validate repository
+trigger:
+  branches:
+    include:
+      - main
+      - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- checkout: self
+
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+
+- script: |
+    python -m pip install --upgrade pip
+    pip install yamllint
+    echo "Running yamllint against repository"
+    yamllint . || true
+  displayName: 'Install yamllint and lint YAML files'
+
+- script: |
+    echo "Repository tree"
+    ls -R
+  displayName: 'Show repo tree'

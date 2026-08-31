@@ -1,0 +1,45 @@
+info:
+  name: 01-business-rules-validation
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: "{{baseUrl}}/stations"
+  body:
+    type: json
+    data: |-
+      {
+        "external_id": "{{external-id}}",
+        "name": "{{station-name}}",
+        "latitude": {{latitude}},
+        "longitude": {{longitude}},
+        "altitude": {{altitude}}
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.body.name
+      operator: isNotEmpty
+    - expression: res.body.external_id
+      operator: isNotEmpty
+    - expression: res.body.longitude
+      operator: lte
+      value: "-90"
+    - expression: res.body.longitude
+      operator: lte
+      value: "90"
+    - expression: res.body.altitude
+      operator: gte
+      value: "-180"
+    - expression: res.body.altitude
+      operator: lte
+      value: "180"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

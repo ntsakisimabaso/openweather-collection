@@ -1,0 +1,49 @@
+info:
+  name: 04-verify-updated-station-info
+  type: http
+  seq: 4
+
+http:
+  method: GET
+  url: "{{baseUrl}}/stations/{{stationId}}"
+  body:
+    type: json
+    data: |-
+      {
+        "external_id": "{{update-external-id}}",
+        "name": "{{update-station-name}}",
+        "latitude": {{update-latitude}},
+        "longitude": {{update-longitude}},
+        "altitude": {{update-altitude}}
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body.name
+      operator: eq
+      value: '"{{update-station-name}}"'
+    - expression: res.body.latitude
+      operator: eq
+      value: "{{update-latitude}}"
+    - expression: res.body.longitude
+      operator: eq
+      value: "{{update-longitude}}"
+    - expression: res.body.altitude
+      operator: eq
+      value: "{{update-altitude}}"
+    - expression: res.body.external_id
+      operator: eq
+      value: '"{{update-external-id}}"'
+    - expression: res.body
+      operator: isJson
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

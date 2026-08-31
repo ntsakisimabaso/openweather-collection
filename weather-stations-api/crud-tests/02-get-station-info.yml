@@ -1,0 +1,39 @@
+info:
+  name: 02-get-station-info
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{baseUrl}}/stations/{{stationId}}"
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body.name
+      operator: eq
+      value: '"{{station-name}}"'
+    - expression: res.body.latitude
+      operator: eq
+      value: "{{latitude}}"
+    - expression: res.body.longitude
+      operator: eq
+      value: "{{longitude}}"
+    - expression: res.body.altitude
+      operator: eq
+      value: "{{altitude}}"
+    - expression: res.body.external_id
+      operator: eq
+      value: '"{{external-id}}"'
+    - expression: res.body
+      operator: isJson
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

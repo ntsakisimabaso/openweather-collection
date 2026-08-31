@@ -1,0 +1,35 @@
+info:
+  name: 03-invalid-latitude
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{baseUrl}}/stations"
+  body:
+    type: json
+    data: |-
+      {
+        "external_id": "{{external-id}}",
+        "name": "{{station-name}}",
+        "latitude": 95,
+        "longitude": {{longitude}},
+        "altitude": {{altitude}}
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "400"
+    - expression: res.body.message
+      operator: eq
+      value: Station latitude should be in (-90:90)
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

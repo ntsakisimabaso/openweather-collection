@@ -1,0 +1,35 @@
+info:
+  name: 04-invalid-station-id
+  type: http
+  seq: 1
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/stations/1"
+  body:
+    type: json
+    data: |-
+      {
+        "external_id": "{{update-external-id}}",
+        "name": "{{update-station-name}}",
+        "latitude": {{update-latitude}},
+        "longitude": {{update-longitude}},
+        "altitude": {{update-altitude}}
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "400"
+    - expression: res.body.message
+      operator: eq
+      value: Station id not valid
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

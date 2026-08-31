@@ -1,0 +1,51 @@
+info:
+  name: 01-schema-validation
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{baseUrl}}/stations"
+  body:
+    type: json
+    data: |-
+      {
+        "external_id": "{{external-id}}",
+        "name": "{{station-name}}",
+        "latitude": {{latitude}},
+        "longitude": {{longitude}},
+        "altitude": {{altitude}}
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.body.name
+      operator: isDefined
+    - expression: res.body.latitude
+      operator: isDefined
+    - expression: res.body.longitude
+      operator: isDefined
+    - expression: res.body.altitude
+      operator: isDefined
+    - expression: res.body.external_id
+      operator: isDefined
+    - expression: res.body.ID
+      operator: isDefined
+    - expression: res.body.updated_at
+      operator: isDefined
+    - expression: res.body.created_at
+      operator: isDefined
+    - expression: res.body.user_id
+      operator: isDefined
+    - expression: res.body.rank
+      operator: isDefined
+    - expression: res.body.source_type
+      operator: isDefined
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,0 +1,76 @@
+info:
+  name: 03-update-station-info
+  type: http
+  seq: 3
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/stations/{{stationId}}"
+  body:
+    type: json
+    data: |-
+      {
+        "external_id": "{{update-external-id}}",
+        "name": "{{update-station-name}}",
+        "latitude": {{update-latitude}},
+        "longitude": {{update-longitude}},
+        "altitude": {{update-altitude}}
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        // Extract the response body
+        const response = res.getBody();
+
+        //Save ID to an Environment Variable
+        bru.setEnvVar("updatedStationId", response.ID);
+    - type: tests
+      code: |-
+        const response = res.getBody();
+
+        test("updated_at has valid ISO 8601 format", function() {
+          expect(response.updated_at).to.match(
+            /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z$/
+          );
+        });
+
+        test("created_at has valid ISO 8601 format", function() {
+          expect(response.created_at).to.match(
+            /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z$/
+          );
+        });
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body.name
+      operator: eq
+      value: '"{{update-station-name}}"'
+    - expression: res.body.latitude
+      operator: eq
+      value: "{{update-latitude}}"
+    - expression: res.body.longitude
+      operator: eq
+      value: "{{update-longitude}}"
+    - expression: res.body.altitude
+      operator: eq
+      value: "{{update-altitude}}"
+    - expression: res.body.external_id
+      operator: eq
+      value: '"{{update-external-id}}"'
+    - expression: res.body.id
+      operator: isString
+    - expression: res.body.id
+      operator: isNotEmpty
+    - expression: res.body
+      operator: isJson
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

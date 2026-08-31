@@ -1,0 +1,35 @@
+info:
+  name: 07-invalid-longitude
+  type: http
+  seq: 11
+
+http:
+  method: POST
+  url: "{{baseUrl}}/stations"
+  body:
+    type: json
+    data: |-
+      {
+        "external_id": "{{external-id}}",
+        "name": "{{station-name}}",
+        "latitude": {{latitude}},
+        "longitude": 185,
+        "altitude": {{altitude}}
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "400"
+    - expression: res.body.message
+      operator: eq
+      value: Station longitude should be in (-180:180)
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

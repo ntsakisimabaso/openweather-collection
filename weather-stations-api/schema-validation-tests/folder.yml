@@ -1,0 +1,7 @@
+info:
+  name: schema-validation-tests
+  type: folder
+  seq: 3
+
+request:
+  auth: inherit
