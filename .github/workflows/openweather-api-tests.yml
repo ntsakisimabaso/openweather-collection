@@ -17,7 +17,7 @@ jobs:
 
       - name: Run API tests
         run: |
-          bru run ./OpenWeather \
-            --env qa
+          bru run . \
+            --env environment-variables
         env:
-          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+          OPENWEATHER_API_KEY: ${{secrets.OPENWEATHER_API_KEY}}
