@@ -2,6 +2,7 @@ opencollection: 1.0.0
 
 info:
   name: openweather-collection
+  type: collection
 config:
   proxy:
     inherit: true
