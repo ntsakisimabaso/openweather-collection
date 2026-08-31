@@ -17,7 +17,8 @@ jobs:
 
       - name: Run API tests
         run: |
-          bru run . \
+          # Limit Bruno to the test folder to avoid scanning unrelated YAML files
+          bru run ./weather-stations-api \
             --env environment-variables
         env:
           OPENWEATHER_API_KEY: ${{secrets.OPENWEATHER_API_KEY}}
