@@ -28,3 +28,4 @@ To enable CI:
 1. In Azure DevOps create a new pipeline and point it to this repository.
 2. Use the existing `azure-pipelines.yml` at the repository root.
 
+# bruno
