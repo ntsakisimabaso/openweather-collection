@@ -2,7 +2,6 @@ opencollection: 1.0.0
 
 info:
   name: openweather-collection
-  type: collection
 config:
   proxy:
     inherit: true
@@ -22,7 +21,7 @@ request:
   auth:
     type: apikey
     key: appid
-    value: "${{secrets.OPENWEATHER_API_KEY}}"
+    value: "{{OPENWEATHER_API_KEY}}"
     placement: query
 bundled: false
 extensions:

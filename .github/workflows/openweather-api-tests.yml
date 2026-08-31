@@ -17,6 +17,6 @@ jobs:
 
       - name: Run API tests
         run: |
-          bru run --env environment-variables
+          bru run --env environment-variables --reporter-html results.html
         env:
           OPENWEATHER_API_KEY: ${{secrets.OPENWEATHER_API_KEY}}
