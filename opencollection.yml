@@ -35,3 +35,5 @@ extensions:
       - .github/workflows
       - azure-pipelines.yml
       - .ci
+      - .ci/**
+      - .ci/*
