@@ -1,17 +1,26 @@
-info:
-  name: environment-variables
-  type: environment
+name: Untitled Environment
 variables:
-  baseUrl: "http://api.openweathermap.org/data/3.0"
-  "station-name": "San Francisco Test Station"
-  "external-id": "SF_TEST001 "
-  latitude: "37.76"
-  longitude: "-122.43"
-  altitude: "150"
-  "update-station-name": "San Francisco Updated Station"
-  "update-external-id": "SF_UPD001"
-  "update-latitude": "37.80"
-  "update-longitude": "-122.47"
-  "update-altitude": "143"
-  api-key: "${{ secrets.OPENWEATHER_API_KEY }}"
-  stationId: "6a953d6aadde3b00013441fa"
+  - name: baseUrl
+    value: http://api.openweathermap.org/data/3.0
+  - name: station-name
+    value: San Francisco Test Station
+  - name: external-id
+    value: "SF_TEST001 "
+  - name: latitude
+    value: "37.76"
+  - name: longitude
+    value: "-122.43"
+  - name: altitude
+    value: "150"
+  - name: update-station-name
+    value: San Francisco Updated Station
+  - name: update-external-id
+    value: SF_UPD001
+  - name: update-latitude
+    value: "37.80"
+  - name: update-longitude
+    value: "-122.47"
+  - name: update-altitude
+    value: "143"
+  - secret: true
+    name: api-key
