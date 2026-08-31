@@ -29,3 +29,7 @@ extensions:
     ignore:
       - node_modules
       - .git
+      - .github
+      - .github/**
+      - .github/workflows
+      - azure-pipelines.yml

@@ -1,4 +1,6 @@
-name: environment-variables
+info:
+  name: environment-variables
+  type: environment
 variables:
   - name: baseUrl
     value: http://api.openweathermap.org/data/3.0
@@ -24,5 +26,6 @@ variables:
     value: "143"
   - secret: true
     name: api-key
+    value: ${{ secrets.OPENWEATHER_API_KEY }}
   - name: stationId
     value: 6a953d6aadde3b00013441fa
