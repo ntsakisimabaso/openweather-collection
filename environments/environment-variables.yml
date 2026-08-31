@@ -22,7 +22,5 @@ variables:
     value: "-122.47"
   - name: update-altitude
     value: "143"
-  - name: OPENWEATHER_API_KEY
-    value: ${{secrets.OPENWEATHER_API_KEY}}
   - name: stationId
     value: 6a9560f7adde3b0001344211

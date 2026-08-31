@@ -22,7 +22,7 @@ request:
   auth:
     type: apikey
     key: appid
-    value: "{{OPENWEATHER_API_KEY}}"
+    value: "${{secrets.OPENWEATHER_API_KEY}}"
     placement: query
 bundled: false
 extensions:
